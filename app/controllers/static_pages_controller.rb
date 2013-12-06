@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   end
 
   def help
+    @company = "RiisingSun"
   end
   
   def contact

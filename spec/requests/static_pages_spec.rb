@@ -4,44 +4,50 @@ describe "StaticPages" do
   
   let(:base_title) { "TapList" }
   
+  subject { page }
+  
+  shared_examples_for "all static pages" do
+    it { should have_selector('h1', text: heading) }
+    it { should have_title(full_title(page_title)) }
+  end
+  
   describe "Home page" do
-    it "should have the content 'TapList'" do
-      visit '/static_pages/home'
-      expect(page).to have_content('TapList')
-    end
-    
-    it "should have the base title" do
-      visit '/static_pages/home'
-      expect(page).to have_title("#{base_title}")
-    end
-    
-    it "should not have a custom page title" do
-      expect(page).not_to have_title('| Home')
-    end
+    before { visit root_path }
+
+    it { should_not have_selector('h1', text: 'TapList') }
+    it { should have_title(full_title('')) }
+    it { should_not have_title('| Home') }
   end
 
   describe "Help page" do
-    it "should have the content 'Help'" do
-      visit '/static_pages/help'
-      expect(page).to have_content('Help')
-    end
+    before { visit help_path }
+    let(:heading)     { 'Help' }
+    let(:page_title)  { 'Help' }
     
-    it "should have the right title 'Help'" do
-      visit '/static_pages/help'
-      expect(page).to have_title("#{base_title} | Help")
-    end
+    it_should_behave_like "all static pages"
   end
   
   describe "Contact page" do
-    it "should have the content 'Contact Us'" do
-      visit '/static_pages/contact'
-      expect(page).to have_content('Contact Us')
-    end
+    before { visit contact_path }
+    let(:heading)     { 'Contact Us' }
+    let(:page_title)  { 'Contact Us' }
     
-    it "should have the right title 'Contact Us'" do
-      visit '/static_pages/contact'
-      expect(page).to have_title("#{base_title} | Contact Us")
-    end
+    it_should_behave_like "all static pages"
+  end
+  
+  it "should have the right links on the layout" do
+    visit root_path
+    
+    click_link "Help"
+    expect(page).to have_title(full_title('Help'))
+    
+    click_link "Contact"
+    expect(page).to have_title(full_title('Contact'))
+    
+    click_link "logo"
+    expect(page).to have_title(full_title(''))
+    
+    click_link "Sign up!"
+    expect(page).to have_title(full_title('Sign up'))
   end
 end
-

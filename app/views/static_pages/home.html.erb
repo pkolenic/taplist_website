@@ -1,4 +1,31 @@
-<h1>TapList</h1>
-<p>
-	This is going to be the contact page
-</p>
+<script>
+	$(document).ready(function(){
+		$(function() {
+			$("#tabs").tabs();
+		});		
+	});
+</script>
+
+<div class="center hero-unit">
+		<div id="tabs">
+			<ul>
+				<li><%= link_to "Summary", '#summary-tab' %></li>
+				<li><%= link_to "Preview", '#preview-tab' %></li>
+				<li><%= link_to 'Costs', '#costs-tab' %></li>
+			</ul>
+			
+			<div id="summary-tab">
+				<p>Summary Stuff</p>	
+			</div>
+			
+			<div id="preview-tab">
+				<p>Preview Stuff</p>
+			</div>
+			
+			<div id="costs-tab">
+				<p>Costs Stuff</p>
+			</div>
+		</div>
+		
+		<%= link_to "Sign up!", signup_path, class: "btn btn-large btn-primary" %>
+</div>
