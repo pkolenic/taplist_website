@@ -15,6 +15,7 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:full_name) }
   
   it { should be_valid }
   
@@ -26,6 +27,12 @@ describe User do
   describe "when last name is not present" do
     before {@user.last_name = " " }
     it { should_not be_valid }
+  end
+  
+  describe "full name should equal first and last name" do
+    it "should be have the correct full name" do
+      expect(@user.full_name).to eq "Example User"
+    end
   end
   
   describe "when email is not present" do

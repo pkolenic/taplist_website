@@ -14,4 +14,9 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
                     
   validates :password, length: { minimum: 6 }
+  
+  # Convenance Functions
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
